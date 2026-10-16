@@ -177,7 +177,7 @@ p{margin:0 0 1em}
 
 .rodape{background:var(--escuro);color:#B9AF9C;padding:56px 0 30px;font-size:.88rem}
 .rodape .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center}
-.rodape img{height:56px;filter:brightness(1.6) saturate(.6)}
+.rodape img{height:76px;width:auto;opacity:.95}
 .rodape a{color:#E8E0D2}
 
 .zap{position:fixed;right:20px;bottom:20px;z-index:50;width:58px;height:58px;border-radius:50%;background:var(--tinta);color:var(--creme);display:grid;place-items:center;box-shadow:0 12px 30px rgba(46,42,35,.3);transition:transform .3s var(--mov),background .3s}
