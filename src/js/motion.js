@@ -38,7 +38,12 @@
   function quebrar(el) {
     var txt = el.textContent.trim();
     el.setAttribute("aria-label", txt);
-    el.innerHTML = txt.split(/\s+/).map(function (w) { return '<span class="pal" aria-hidden="true"><span>' + w + "</span></span>"; }).join(" ");
+    var partes = [];
+    el.childNodes.forEach(function (n) {
+      var cls = n.nodeType === 1 ? n.className : "";
+      (n.textContent || "").split(/\s+/).forEach(function (w) { if (w) partes.push('<span class="pal" aria-hidden="true"><span' + (cls ? ' class="' + cls + '"' : "") + ">" + w + "</span></span>"); });
+    });
+    el.innerHTML = partes.join(" ");
     return $$(".pal > span", el);
   }
 
@@ -52,7 +57,8 @@
       .from(".heroi [data-surge]", { opacity: 0, y: 18, duration: .9, ease: "power3.out", stagger: .1 }, "-=.7")
       .fromTo(".heroi .arco", { clipPath: "inset(100% 0 0 0 round 999px 999px 18px 18px)" }, { clipPath: "inset(0% 0 0 0 round 999px 999px 18px 18px)", duration: 1.4, ease: "expo.inOut" }, .1)
       .from(".heroi .arco img", { scale: 1.18, duration: 1.8, ease: "expo.out" }, .3)
-      .from(".heroi .etiqueta", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.6");
+      .from(".heroi .etiqueta", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.6")
+      .from(".heroi .foto-mini", { scale: 0, duration: .9, ease: "back.out(1.8)", stagger: .15 }, "-=.7");
   }
 
   /* traço da folha (logo) desenhado pela rolagem */
@@ -76,6 +82,7 @@
     if (img) gsap.fromTo(img, { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1.12, ease: "none", scrollTrigger: { trigger: a, start: "top bottom", end: "bottom top", scrub: true } });
   });
   gsap.from(".trat", { opacity: 0, y: 34, duration: .9, ease: "power3.out", stagger: .07, scrollTrigger: { trigger: ".trats", start: "top 82%" } });
+  gsap.from(".faixa-foto", { rotate: 4, y: 60, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ".faixa-calor", start: "top 80%" } });
   gsap.from(".resultados figure", { opacity: 0, y: 40, duration: 1, ease: "power3.out", stagger: .12, scrollTrigger: { trigger: ".resultados", start: "top 82%" } });
   gsap.from(".cartao", { opacity: 0, y: 50, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: ".cartao", start: "top 85%" } });
   gsap.from(".time li", { opacity: 0, x: -14, duration: .6, ease: "power2.out", stagger: .05, scrollTrigger: { trigger: ".time", start: "top 85%" } });
